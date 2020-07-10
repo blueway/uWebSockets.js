@@ -33,11 +33,7 @@ struct node_version {
     char *name;
     char *abi;
 } versions[] = {
-    {"v10.17.0", "64"},
-    {"v11.15.0", "67"},
     {"v12.13.0", "72"},
-    {"v13.1.0", "79"},
-    {"v14.0.0", "83"}
 };
 
 /* Downloads headers, creates folders */
@@ -50,7 +46,7 @@ void prepare() {
     for (unsigned int i = 0; i < sizeof(versions) / sizeof(struct node_version); i++) {
         run("curl -OJ https://nodejs.org/dist/%s/node-%s-headers.tar.gz", versions[i].name, versions[i].name);
         run("tar xzf node-%s-headers.tar.gz -C targets", versions[i].name);
-        run("curl https://nodejs.org/dist/%s/win-x64/node.lib > targets/node-%s/node.lib", versions[i].name, versions[i].name);
+        // run("curl https://nodejs.org/dist/%s/win-x64/node.lib > targets/node-%s/node.lib", versions[i].name, versions[i].name);
     }
 }
 
@@ -106,10 +102,10 @@ int main() {
           "clang++",
           "-static-libstdc++ -static-libgcc -s",
           OS,
-          "x64");
+          "ia32");
 
     /* If linux we also want arm64 */
-    build("aarch64-linux-gnu-gcc", "aarch64-linux-gnu-g++", "-static-libstdc++ -static-libgcc -s", OS, "arm64");
+    // build("aarch64-linux-gnu-gcc", "aarch64-linux-gnu-g++", "-static-libstdc++ -static-libgcc -s", OS, "arm64");
 #endif
 #endif
 
