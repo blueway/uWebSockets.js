@@ -98,14 +98,13 @@ int main() {
           "x64");
 #else
     /* Linux */
-    build("clang",
-          "clang++",
-          "-static-libstdc++ -static-libgcc -s",
+    build("gcc-7 -m32",
+          "g++-7 -m32",
+          "-m32 -static-libstdc++ -static-libgcc -s",
           OS,
           "ia32");
 
-    /* If linux we also want arm64 */
-    // build("aarch64-linux-gnu-gcc", "aarch64-linux-gnu-g++", "-static-libstdc++ -static-libgcc -s", OS, "arm64");
+    build("clang-7", "clang++-7", "-static-libstdc++ -static-libgcc -s", OS, "x64");
 #endif
 #endif
 
